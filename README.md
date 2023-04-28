@@ -25,12 +25,24 @@ pnpm run dev
 
 - [使用文档](https://blog.bszhct.com/2022/08/15/onlyoffice-quick-start/)
 
+# 启动docker
+```js
+docker run -itd --name onlyoffice --restart always -p 8090:80 -v /data/docker/onlyoffice/log:/var/log/onlyoffice  -v /data/docker/onlyoffice/data:/var/www/onlyoffice/Data  -v /data/docker/onlyoffice/lib:/var/lib/onlyoffice -v /data/docker/onlyoffice/db:/var/lib/postgresql onlyoffice/documentserver
+```
+# 启动所有服务
+docker exec -it containerID /bin/bash
+supervisorctl restart all
 
-## onlyoffice 填坑交流群
+# 获取秘钥
+docker exec containerID /var/www/onlyoffice/documentserver/npm/json -f /etc/onlyoffice/documentserver/local.json 'services.CoAuthoring.secret.session.string'
 
-![onlyoffice 填坑交流群](./qrcode.jpg)
+# 秘钥位置
+/etc/onlyoffice/documentserver/local.json 
 
 
 ## License
 
 [MIT](/LICENSE)
+
+
+
